@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  tests:
+    build: .
+    volumes:
+      - ./allure-results:/app/allure-results
+      - ./allure-report:/app/allure-report
+    command: >
+      sh -c "
+      pytest &&
+      echo 'Allure results:' &&
+      ls -la allure-results &&
+      allure generate allure-results -o allure-report --clean
+      "
